@@ -71,6 +71,13 @@ In Account or Login Controller
                 var accessToken = identity.FindFirstValue("FacebookAccessToken");
                 var fb = new FacebookClient(accessToken);
                 dynamic myInfo = fb.Get(FacebookRequiredPermissions); // specify the fields 
+                 //if(((JsonObject)myInfo).Count > 0)
+               // {
+               //     foreach (var item in ((JsonObject)myInfo).Values)
+               //     {
+               //            // obj.first_name = Convert.ToString(item);
+               //     }
+               // } 
             }
 
             //   Sign in the user with this external login provider if the user already has a login
@@ -78,7 +85,7 @@ In Account or Login Controller
             switch (result)
             {
                 case SignInStatus.Success:
-                    ViewBag.Name = "";
+                    TempData["UserName"] = loginInfo.DefaultUserName;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
